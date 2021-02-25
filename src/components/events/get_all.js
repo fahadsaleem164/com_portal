@@ -5,28 +5,97 @@ import Col from 'react-bootstrap/Col'
 import {Table , Alert , Form , FormControl ,Modal , Button} from 'react-bootstrap'
 import axios from "axios"
 import * as qs from "query-string"
-
+import { BrowserRouter as Router , Route , Link } from "react-router-dom";
 
 
 class GetAll extends Component {
+   
     constructor(props, context) {
-		super(props, context);
+
+        super(props) 
+        this.state = {
+			show: false,
+            data:[],
+            delete_id:''
+		};
+     
+
 
 		this.handleShow = this.handleShow.bind(this);
 		this.handleClose = this.handleClose.bind(this);
 
-		this.state = {
-			show: false,
-		};
+	
 	}
+
+
+    componentDidMount() {
+
+        const axiosOptions = {
+            url: process.env.React_App_API_URL + 'event/getAll',
+            method: "get",
+          }
+
+          axios(axiosOptions)
+          .then(response => {
+            this.setState({
+            
+                data : response.data.message.data
+  
+              })
+             
+              
+
+
+          })
+          .catch(err =>
+
+            console.log(err)
+           
+          )
+
+
+      }
 
     handleClose() {
+
 		this.setState({ show: false });
+
 	}
 
-	handleShow() {
-		this.setState({ show: true });
+	handleShow(id) {
+        
+      
+		 this.setState({ 
+             show: true , 
+            });
+
+            this.deleteId(id)
+         
 	}
+
+    deleteId(id){
+
+        console.log(id)
+        if(window.confirm('Are you sure')){
+
+        const axiosOptions = {
+            url: process.env.React_App_API_URL + 'event/delete/'+id,
+            method: "delete",
+          }
+        
+          axios(axiosOptions)
+          .then(response => {
+              this.componentDidMount()
+          })
+          .catch(err =>
+
+            console.log(err)
+           
+          )
+
+        }
+       
+    }
         
     
     render() {
@@ -36,51 +105,71 @@ class GetAll extends Component {
         return (
             <div>
                <div> 
+                   
                    <Container fluid >
                     <h1 style={{textAlign:'center'}}>All Events</h1>
  
-                    <Table responsive="lg">
+                    <Table bordered hover responsive="lg">
                         <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Description</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Orgnization</th>
-                            <th>Contact Details</th>
-                            <th>Contact Person</th>
-                            <th>Venue</th>
-                            <th>Phone#</th>
-                            <th>Mobile</th>
-                            <th>website</th>
-                            <th>Delete</th>
+                            <th width="5%">#</th>
+                            <th width="5%">Name</th>
+                            <th width="5%">Email</th>
+                            <th width="10%">Description</th>
+                            <th width="10%">Start Date</th>
+                            <th width="10%">End Date</th>
+                            <th width="5%">Orgnization</th>
+                            <th width="10%">Contact Person</th>
+                            <th width="10%">Venue</th>
+                            <th width="10%">Phone#</th>
+                            <th width="5%">Mobile</th>
+                            {/* <th width="10%">Register URL</th> */}
+                            <th width="10%">Register</th>
+                            <th width="10%">Website</th>
+                            <th width="5%">Delete</th>
+                            <th width="5%">Edit</th>
                             
                   
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>1</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td>Table cell</td>
-                            <td><a style={{cursor:'pointer'}} variant="primary" onClick={this.handleShow}>
+
+                        {this.state.data.map((data , index) => (
+
+                            <tr key={index}>
+                            <td width="5%">{index + 1}</td>
+                            <td width="5%">{data.name}</td>
+                            <td width="5%">{data.email}</td>
+                            <td width="50%" style={{wordWrap:'break-word'}}>{data.description.substring(0,100)}...</td>
+                            <td width="10%">{data.start_date}</td>
+                            <td width="10%">{data.end_date}</td>
+                            <td width="5%">{data.orgnization_id}</td>
+                            <td width="10%">{data.contact_person}</td>
+                            <td width="10%">{data.venue}</td>
+                            <td width="5%">{data.phone_no}</td>
+                            <td width="5%">{data.mobile_no}</td>
+                            <td width="10%">
+                            <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.student_token} target="_blank"><Button variant="primary">Student</Button></a> <br></br><br></br>
+                            <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.mentor_token} target="_blank"><Button variant="primary">Mentor</Button></a>
+                                </td>
+                            <td width="10%">{data.website}</td>
+
+                            <td width="5%">
+                                <a style={{cursor:'pointer'}} variant="primary" onClick={() => this.deleteId(data.id)}>
 					                Delete
                                 </a>
                             </td>
+
+                            <td width="5%">
+                                <Link to={'/edit_event/'+data.id} style={{cursor:'pointer'}} variant="primary">
+					                Edit
+                                </Link>
+                            </td>
                             
                         </tr>
+
+                        ))}  
+                        
                       
                       
                         </tbody>
@@ -88,16 +177,16 @@ class GetAll extends Component {
 
                     <Modal show={this.state.show} onHide={this.handleClose}>
 					
-					<Modal.Body style={{textAlign:'center'}}>Are You Sure You Want to delete this?</Modal.Body>
-					<Modal.Footer>
-						<Button  variant="secondary" onClick={this.handleClose}>
-							No
-                        </Button>
-                                    <Button variant="danger" onClick={this.handleClose}>
-                                      Yes
-                        </Button>
-					</Modal.Footer>
-				</Modal>
+                        <Modal.Body style={{textAlign:'center'}}>Are You Sure You Want to delete this?</Modal.Body>
+                        <Modal.Footer>
+                            <Button  variant="secondary" onClick={this.handleClose}>
+                                No
+                            </Button>
+                                        <Button variant="danger" onClick={this.deleteId}>
+                                        Yes
+                            </Button>
+                        </Modal.Footer>
+				    </Modal>
                     
 
 

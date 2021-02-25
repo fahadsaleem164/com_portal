@@ -14,23 +14,15 @@ class MainHeader extends Component {
 
         return (
 
-             <Router>
+           
                     <Navbar bg="dark" variant="dark">
-                        {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
                         <Nav className="mr-auto">
-                        <Nav><Link to='/event'>Event</Link></Nav>
-                      
+                        <Nav><Link to='/events'>Events</Link></Nav>&nbsp;&nbsp;
+                        <Nav><Link to='/add'>Organizations</Link></Nav>
                         </Nav>
-                      
-                        
-                      
-                    </Navbar>
-                      
-                    <Route exact path="/edit_event" component={EditEvent}/>
-                      <Route exact path="/all_events" component={GetAllEvents}/>
-                      <Route exact path="/event" component={Event}/>
 
-             </Router>
+                    </Navbar>
+        
         
             );
     }
