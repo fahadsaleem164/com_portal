@@ -187,7 +187,7 @@ class GetAll extends Component {
                         </tbody>
 
                     </Table>
-                    <a href="#" onClick={this.handleShow}>Modal</a>
+                    {/* <a href="#" onClick={this.handleShow}>Modal</a>
 
                     <Modal show={this.state.show} onHide={this.handleClose}>
 					
@@ -200,7 +200,7 @@ class GetAll extends Component {
                                         Yes
                             </Button>
                         </Modal.Footer>
-				    </Modal>
+				    </Modal> */}
                     
 
 
