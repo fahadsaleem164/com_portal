@@ -6,7 +6,11 @@ import MainLayout from './layout/main_layout'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Event from './components/events/add'
 import GetAllEvents from './components/events/get_all'
+import Homepage from './components/homepage'
 import EditEvent from './components/events/edit'
+
+
+
 
 const AppRoute = ({component : Component, layout:Layout, ...rest})=>(
   <Route {...rest} render={props=>(
@@ -23,6 +27,7 @@ function App() {
 
      
           <Router>
+             <AppRoute exact path='/' layout={MainLayout} component={Homepage} />
                <AppRoute exact path='/events' layout={MainLayout} component={Event} />
                <AppRoute exact path='/edit_event/:id' layout={MainLayout} component={EditEvent} />
                <AppRoute exact path='/all_events' layout={MainLayout} component={GetAllEvents} />
