@@ -30,7 +30,7 @@ class EditEvent extends Component {
         console.log(this.state.id)
 
         const axiosOptions = {
-            url: 'http://cp.cambridgeadvisorsnet.com/api/event/getOne/'+this.state.id,
+            url: process.env.React_App_API_URL + 'event/getOne/'+this.state.id,
             method: "get",
           }
 
