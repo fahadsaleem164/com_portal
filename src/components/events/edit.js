@@ -86,7 +86,7 @@ class EditEvent extends Component {
         fd.append( 'email', this.state.email);
         fd.append( 'start_date', this.state.start_date);
         fd.append( 'end_date', this.state.end_date);
-        fd.append( 'orgnization_id', this.state.orgnization);
+        fd.append( 'orgnization_id','1' );      
         fd.append( 'contact_details', this.state.contact_details);
         fd.append( 'venue', this.state.venue);
         fd.append( 'phone_no', this.state.phone);
@@ -199,14 +199,14 @@ class EditEvent extends Component {
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formPlaintextPassword">
+                        {/* <Form.Group as={Row} controlId="formPlaintextPassword">
                             <Form.Label column sm="2">
                             Orgnization
                             </Form.Label>
                             <Col sm="10">
                             <Form.Control type="text" onChange={this.handleChange} placeholder="" value={this.state.orgnization} name="orgnization" />
                             </Col>
-                        </Form.Group>
+                        </Form.Group> */}
 
                         <Form.Group as={Row} controlId="formPlaintextPassword">
                             <Form.Label column sm="2">

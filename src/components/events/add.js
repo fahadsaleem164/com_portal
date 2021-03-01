@@ -6,9 +6,8 @@ import { BrowserRouter as Router , Route , Link } from "react-router-dom"
 import {Alert , Form , FormControl , Button} from 'react-bootstrap'
 import axios from "axios"
 import * as qs from "query-string"
-
-
-
+import FlashMessage from 'react-flash-message'
+ 
 
 class Event extends Component {
 
@@ -50,7 +49,7 @@ class Event extends Component {
         fd.append( 'email', this.state.email);
         fd.append( 'start_date', this.state.start_date);
         fd.append( 'end_date', this.state.end_date);
-        fd.append( 'orgnization_id', this.state.orgnization);
+        fd.append( 'orgnization_id', '1');  //fd.append( 'orgnization_id', this.state.orgnization);
         fd.append( 'venue', this.state.venue);
         fd.append( 'phone_no', this.state.phone);
         fd.append( 'contact_person', this.state.contact_person);
@@ -106,22 +105,35 @@ class Event extends Component {
             <Container>
                 <h1 style={{textAlign:'center'}}>Add Event</h1>
               
-                <Link to='/all_events'> <Button variant="success" className="float-right">All Events</Button></Link>
+               
                 <br></br>
                 <br></br>
                 {/* <button as="input" type="submit" variant="success" >All Events</button></Link> */}
 
                     <Form name="event form" method="POST" onSubmit={event => this.handleSubmit(event)}>
                      {this.state.errorStatus == 'error'?
-                    <Alert variant="danger">
-                        <Alert.Heading>{this.state.msg}</Alert.Heading>
-                    </Alert> :null}
+                        <FlashMessage duration={3000}>
+
+                            <Alert variant="danger">
+                            <Alert.Heading>{this.state.msg}</Alert.Heading>
+                            </Alert>
+                            
+                        </FlashMessage>
+                     :null}
 
                     {this.state.errorStatus == 'success'?
-                    <Alert variant="success">
-                        <Alert.Heading>{this.state.msg}</Alert.Heading>
-                       
-                    </Alert> :null}
+                  
+
+                        <FlashMessage duration={3000}>
+                           
+
+                                <Alert variant="success">
+                                <Alert.Heading>{this.state.msg}</Alert.Heading>
+                                </Alert>
+  
+                        </FlashMessage>
+                        
+                     :null}
                           
                         <Form.Group as={Row} controlId="formPlaintextEmail">
                             <Form.Label column sm="2">
@@ -168,14 +180,14 @@ class Event extends Component {
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} controlId="formPlaintextPassword">
+                        {/* <Form.Group as={Row} controlId="formPlaintextPassword">
                             <Form.Label column sm="2">
                             Orgnization
                             </Form.Label>
                             <Col sm="10">
                             <Form.Control type="text" placeholder="" name="orgnization" onChange={this.handleChange} />
                             </Col>
-                        </Form.Group>
+                        </Form.Group> */}
 
                       
 
@@ -217,7 +229,7 @@ class Event extends Component {
 
                         <Form.Group as={Row} controlId="formPlaintextPassword">
                             <Form.Label column sm="2">
-                            website
+                            Website
                             </Form.Label>
                             <Col sm="10">
                             <Form.Control type="url" placeholder="" name="website" onChange={this.handleChange} />

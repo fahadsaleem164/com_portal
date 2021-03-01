@@ -17,8 +17,8 @@ class MainHeader extends Component {
            
                     <Navbar bg="dark" variant="dark">
                         <Nav className="mr-auto">
-                        <Nav><Link to='/events'>Events</Link></Nav>&nbsp;&nbsp;
-                        <Nav><Link to='/add'>Organizations</Link></Nav>
+                        <Nav><Link to='/all_events'>Events</Link></Nav>&nbsp;&nbsp;
+                        {/* <Nav><Link to='/add'>Organizations</Link></Nav> */}
                         </Nav>
 
                     </Navbar>

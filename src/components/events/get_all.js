@@ -2,11 +2,10 @@ import React, {Component, useState } from 'react';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import {Table , Alert , Form , FormControl ,Modal , Button} from 'react-bootstrap'
+import {Table , Alert , Form , FormControl,Modal , Button} from 'react-bootstrap'
 import axios from "axios"
 import * as qs from "query-string"
 import { BrowserRouter as Router , Route , Link } from "react-router-dom";
-
 
 class GetAll extends Component {
    
@@ -43,9 +42,6 @@ class GetAll extends Component {
   
               })
              
-              
-
-
           })
           .catch(err =>
 
@@ -75,7 +71,7 @@ class GetAll extends Component {
 
     deleteId(id){
 
-        console.log(id)
+        
         if(window.confirm('Are you sure')){
 
         const axiosOptions = {
@@ -108,7 +104,7 @@ class GetAll extends Component {
                    
                    <Container fluid >
                     <h1 style={{textAlign:'center'}}>All Events</h1>
- 
+                    <Link to='/events'> <Button variant="success" className="float-right">Add Events</Button></Link>
                     <Table bordered hover responsive="lg">
                         <thead>
                         <tr>
@@ -118,13 +114,14 @@ class GetAll extends Component {
                             <th width="10%">Description</th>
                             <th width="10%">Start Date</th>
                             <th width="10%">End Date</th>
-                            <th width="5%">Orgnization</th>
+                            {/* <th width="5%">Orgnization</th> */}
                             <th width="10%">Contact Person</th>
                             <th width="10%">Venue</th>
                             <th width="10%">Phone#</th>
                             <th width="5%">Mobile</th>
                             {/* <th width="10%">Register URL</th> */}
                             <th width="10%">Register</th>
+                            <th width="10%">Login</th>
                             <th width="10%">Website</th>
                             <th width="5%">Delete</th>
                             <th width="5%">Edit</th>
@@ -143,7 +140,7 @@ class GetAll extends Component {
                             <td width="50%" style={{wordWrap:'break-word'}}>{data.description.substring(0,100)}...</td>
                             <td width="10%">{data.start_date}</td>
                             <td width="10%">{data.end_date}</td>
-                            <td width="5%">{data.orgnization_id}</td>
+                            {/* <td width="5%">{data.orgnization_id}</td> */}
                             <td width="10%">{data.contact_person}</td>
                             <td width="10%">{data.venue}</td>
                             <td width="5%">{data.phone_no}</td>
@@ -156,7 +153,17 @@ class GetAll extends Component {
                             
                             </td>
 
-                            <td width="10%">{data.website}</td>
+                            <td width="10%">
+
+                                    <a href={process.env.React_App_Login_URL+"?event="+data.event_token} target="_blank"><Button variant="primary">Login</Button></a> <br></br><br></br>
+                            
+                            </td>
+
+                            <td width="10%">
+                                <a href={data.website} target="_blank">
+                                {data.website}
+                                </a>
+                                </td>
 
                             <td width="5%">
 
@@ -176,10 +183,11 @@ class GetAll extends Component {
 
                         ))}  
                         
-                      
-                      
+
                         </tbody>
+
                     </Table>
+                    <a href="#" onClick={this.handleShow}>Modal</a>
 
                     <Modal show={this.state.show} onHide={this.handleClose}>
 					

@@ -27,7 +27,7 @@ function App() {
 
      
           <Router>
-             <AppRoute exact path='/' layout={MainLayout} component={Homepage} />
+               <AppRoute exact path='/' layout={MainLayout} component={Homepage} />
                <AppRoute exact path='/events' layout={MainLayout} component={Event} />
                <AppRoute exact path='/edit_event/:id' layout={MainLayout} component={EditEvent} />
                <AppRoute exact path='/all_events' layout={MainLayout} component={GetAllEvents} />
