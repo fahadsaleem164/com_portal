@@ -148,16 +148,22 @@ class GetAll extends Component {
                             <td width="10%">{data.venue}</td>
                             <td width="5%">{data.phone_no}</td>
                             <td width="5%">{data.mobile_no}</td>
+                            
                             <td width="10%">
-                            <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.student_token} target="_blank"><Button variant="primary">Student</Button></a> <br></br><br></br>
-                            <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.mentor_token} target="_blank"><Button variant="primary">Mentor</Button></a>
-                                </td>
+
+                                    <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.student_token} target="_blank"><Button variant="primary">Student</Button></a> <br></br><br></br>
+                                    <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.mentor_token} target="_blank"><Button variant="primary">Mentor</Button></a>
+                            
+                            </td>
+
                             <td width="10%">{data.website}</td>
 
                             <td width="5%">
+
                                 <a style={{cursor:'pointer'}} variant="primary" onClick={() => this.deleteId(data.id)}>
 					                Delete
                                 </a>
+
                             </td>
 
                             <td width="5%">
