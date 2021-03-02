@@ -148,7 +148,7 @@ class GetAll extends Component {
                             
                             <td width="10%">
 
-                                    <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.student_token} target="_blank"><Button variant="primary">Student</Button></a> <br></br><br></br>
+                                    <a href={process.env.React_App_REGISTER_URL_USER+"?event="+data.event_token+"&role_token="+data.student_token} target="_blank"><Button variant="primary">Student</Button></a> <br></br><br></br>
                                     <a href={process.env.React_App_Register_URL+"?event="+data.event_token+"&role_token="+data.mentor_token} target="_blank"><Button variant="primary">Mentor</Button></a>
                             
                             </td>
