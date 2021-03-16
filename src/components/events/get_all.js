@@ -30,15 +30,18 @@ class GetAll extends Component {
     componentDidMount() {
 
         const axiosOptions = {
-            url: process.env.React_App_API_URL + 'event/getAll',
+            url: process.env.React_App_API_URL + 'admin/event',
             method: "get",
           }
 
           axios(axiosOptions)
           .then(response => {
+
+              console.log(response.data.data.data)
+
             this.setState({
             
-                data : response.data.message.data
+                data : response.data.data.data
   
               })
              
